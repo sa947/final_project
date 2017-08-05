@@ -1,0 +1,70 @@
+<html>
+   <head>
+         //add the stylesheet for the application
+	       <link rel="stylesheet" type="text/css" href="style.css">
+	          </head>
+		     <body>
+		           <header>
+			            <?php include 'header.php'; ?>
+				          </header>
+					        <main>
+						         <h2>Todo List</h2>
+							          <table>
+								              <ul>
+									                     //
+											     display
+											     all
+											     the
+											     tasks
+											     in
+											     the
+											     table
+											     todo_list 
+											                    <?php
+													    foreach($tasks
+													    as
+													    $task)
+													    :
+													    ?>
+													                   <tr>
+															                     <td>
+																	                          <li><a
+																				  href="?listID=<?php
+																				  echo
+																				  $task->getID();
+																				  ?>">
+																				                          <?php
+																							  echo
+																							  $task->getTitle();
+																							  ?>
+																							                          </a>
+																										                       </li>
+																												                         </td>
+																															                  </tr>
+																																	                 </ul>
+																																			             </table>
+																																				                 
+																																						              //Display
+																																							      link
+																																							      to
+																																							      add
+																																							      a
+																																							      new
+																																							      task
+																																							      to
+																																							      the
+																																							      table
+																																							      todo_list
+																																							               <p><a
+																																								       href="index.php?action=show_add_form">Create
+																																								       New
+																																								       Todo
+																																								       List</a></p>
+																																								                
+																																										          </main>
+																																											        <?php
+																																												include
+																																												'footer.php';
+																																												?>
+																																												   </body>
+																																												   </html>
