@@ -326,6 +326,7 @@
 																																																																																																										          
 																																																																																																											         
 																																																																																																												        }
+
 																																																																																																													       
 																																																																																																													              
 																																																																																																														         else
@@ -441,7 +442,144 @@
 																																																																																																																																																			        
 																																																																																																																																																				       }
 																																																																																																																																																				              
-
-																																																																																																																																																					         
+																																																																																																																																																					         else
+																																																																																																																																																						 if
+																																																																																																																																																						 ($action
+																																																																																																																																																						 ==
+																																																																																																																																																						 'show_edit_item_form')
+																																																																																																																																																						 {
 																																																																																																																																																						    
-																																																																																																																																																						       ?>
+																																																																																																																																																						       //
+																																																																																																																																																						       Set
+																																																																																																																																																						       all
+																																																																																																																																																						       parameters
+																																																																																																																																																						       required
+																																																																																																																																																						       for
+																																																																																																																																																						       displaying
+																																																																																																																																																						       the
+																																																																																																																																																						       Edit
+																																																																																																																																																						       item
+																																																																																																																																																						       form. 
+																																																																																																																																																						          	$itemID
+																																																																																																																																																								=
+																																																																																																																																																								filter_input(INPUT_POST,
+																																																																																																																																																								'itemID', 
+																																																																																																																																																								               FILTER_VALIDATE_INT);
+																																																																																																																																																									              $listID
+																																																																																																																																																										      =
+																																																																																																																																																										      filter_input(INPUT_POST,
+																																																																																																																																																										      'listID', 
+																																																																																																																																																										                     FILTER_VALIDATE_INT);
+																																																																																																																																																												            
+																																																																																																																																																													           
+																																																																																																																																																														             $current_task
+																																																																																																																																																															     =
+																																																																																																																																																															     $todo_list_DB->getTask($listID);
+																																																																																																																																																															                $tasks
+																																																																																																																																																																	=
+																																																																																																																																																																	$todo_list_DB->getTasks();
+																																																																																																																																																																	           $items
+																																																																																																																																																																		   =
+																																																																																																																																																																		   $todo_item_DB->getItemByTask($listID);
+																																																																																																																																																																		          include('view/item_edit.php');
+																																																																																																																																																																			     }
+																																																																																																																																																																			        
+																																																																																																																																																																				   else
+																																																																																																																																																																				   if
+																																																																																																																																																																				   ($action
+																																																																																																																																																																				   ==
+																																																																																																																																																																				   'edit_item')
+																																																																																																																																																																				   {
+																																																																																																																																																																				          
+																																																																																																																																																																					       //
+																																																																																																																																																																					       Set
+																																																																																																																																																																					       all
+																																																																																																																																																																					       parameters
+																																																																																																																																																																					       required
+																																																																																																																																																																					       for
+																																																																																																																																																																					       displaying
+																																																																																																																																																																					       the
+																																																																																																																																																																					       Home
+																																																																																																																																																																					       page
+																																																																																																																																																																					       after
+																																																																																																																																																																					       editing
+																																																																																																																																																																					       the
+																																																																																																																																																																					       item.  
+																																																																																																																																																																					              $itemID
+																																																																																																																																																																						      =
+																																																																																																																																																																						      filter_input(INPUT_POST,
+																																																																																																																																																																						      'itemID',
+																																																																																																																																																																						      FILTER_VALIDATE_INT);
+																																																																																																																																																																						             $item_title
+																																																																																																																																																																							     =
+																																																																																																																																																																							     filter_input(INPUT_POST,
+																																																																																																																																																																							     'item_title');
+																																																																																																																																																																							            $status
+																																																																																																																																																																								    =
+																																																																																																																																																																								    filter_input(INPUT_POST,
+																																																																																																																																																																								    'status');
+																																																																																																																																																																								           $listID
+																																																																																																																																																																									   =
+																																																																																																																																																																									   filter_input(INPUT_POST,
+																																																																																																																																																																									   'listID', 
+																																																																																																																																																																									                  FILTER_VALIDATE_INT);
+																																																																																																																																																																											         $old_item_title
+																																																																																																																																																																												 =
+																																																																																																																																																																												 filter_input(INPUT_POST,
+																																																																																																																																																																												 'old_item_title');
+																																																																																																																																																																												         $old_status
+																																																																																																																																																																													 =
+																																																																																																																																																																													 filter_input(INPUT_POST,
+																																																																																																																																																																													 'old_status');
+																																																																																																																																																																													           
+																																																																																																																																																																														          if
+																																																																																																																																																																															  ($item_title
+																																																																																																																																																																															  ==
+																																																																																																																																																																															  NULL
+																																																																																																																																																																															  ||
+																																																																																																																																																																															  $item_title
+																																																																																																																																																																															  ==
+																																																																																																																																																																															  FALSE)
+																																																																																																																																																																															  {
+																																																																																																																																																																															             $item_title
+																																																																																																																																																																																     =
+																																																																																																																																																																																     $old_item_title;
+																																																																																																																																																																																                
+																																																																																																																																																																																		       } 
+																																																																																																																																																																																		              if
+																																																																																																																																																																																			      ($status
+																																																																																																																																																																																			      ==
+																																																																																																																																																																																			      NULL
+																																																																																																																																																																																			      ||
+																																																																																																																																																																																			      $status
+																																																																																																																																																																																			      ==
+																																																																																																																																																																																			      FALSE)
+																																																																																																																																																																																			      {
+																																																																																																																																																																																			                 $status
+																																																																																																																																																																																					 =
+																																																																																																																																																																																					 $old_status;
+																																																																																																																																																																																					            
+																																																																																																																																																																																						           } 
+																																																																																																																																																																																							             
+																																																																																																																																																																																								                
+																																																																																																																																																																																										           $todo_item_DB::editItem($itemID,
+																																																																																																																																																																																											   $item_title,
+																																																																																																																																																																																											   $status);
+																																																																																																																																																																																											              
+																																																																																																																																																																																												                 $current_task
+																																																																																																																																																																																														 =
+																																																																																																																																																																																														 $todo_list_DB->getTask($listID);
+																																																																																																																																																																																														            $tasks
+																																																																																																																																																																																															    =
+																																																																																																																																																																																															    $todo_list_DB->getTasks();
+																																																																																																																																																																																															               $items
+																																																																																																																																																																																																       =
+																																																																																																																																																																																																       $todo_item_DB->getItemByTask($listID);
+																																																																																																																																																																																																                  
+																																																																																																																																																																																																		             include('view/task_view.php');
+																																																																																																																																																																																																			            
+																																																																																																																																																																																																				             
+																																																																																																																																																																																																					            }
+																																																																																																																																																																																																						       
+																																																																																																																																																																																																						          
+																																																																																																																																																																																																							     ?>
