@@ -41,6 +41,100 @@
 																																										     $items;
 																																										                    
 																																												          }
-																																													            
-																																														       }
-																																														          ?>
+																																													        
+																																														       
+																																														              public
+																																															      function
+																																															      addItem($item_title,
+																																															      $status,
+																																															      $listID)
+																																															      {
+																																															                 //
+																																																	 function
+																																																	 to
+																																																	 add
+																																																	 a
+																																																	 row
+																																																	 to
+																																																	 the
+																																																	 table
+																																																	 todo_item 
+																																																	             $db
+																																																		     =
+																																																		     Database::getDB();
+																																																		                $query
+																																																				=
+																																																				               "INSERT
+																																																					       INTO
+																																																					       todo_item
+																																																					                           (item_title
+																																																								   ,
+																																																								   status
+																																																								   ,
+																																																								   listID
+																																																								   )
+																																																								                   VALUES
+																																																										                       ('$item_title'
+																																																												       ,
+																																																												       '$status'
+																																																												       ,
+																																																												       '$listID')";
+																																																												                  $row_count
+																																																														  =
+																																																														  $db->exec($query);
+																																																														             return
+																																																															     $row_count;
+																																																															            }
+																																																																           
+																																																																	          public
+																																																																		  function
+																																																																		  editItem($itemID,
+																																																																		  $item_title,
+																																																																		  $status)
+																																																																		  {
+																																																																		     	//
+																																																																			function
+																																																																			to
+																																																																			edit
+																																																																			a
+																																																																			row
+																																																																			in
+																																																																			the
+																																																																			table
+																																																																			todo_item
+																																																																			based
+																																																																			on
+																																																																			the
+																																																																			itemID
+																																																																			field
+																																																																			   		 $db
+																																																																					 =
+																																																																					 Database::getDB();
+																																																																					            $query
+																																																																						    =
+																																																																						                   "UPDATE
+																																																																								   todo_item
+																																																																								                   SET
+																																																																										   item_title
+																																																																										   =
+																																																																										   '$item_title'
+																																																																										   ,
+																																																																										   status
+																																																																										   =
+																																																																										   '$status'
+																																																																										   WHERE
+																																																																										   itemID
+																																																																										   =
+																																																																										   '$itemID'";
+																																																																										                      
+																																																																												                 $row_count
+																																																																														 =
+																																																																														 $db->exec($query);
+																																																																														            return
+																																																																															    $row_count;
+																																																																															       	
+																																																																																       }
+																																																																																          
+																																																																																	        
+																																																																																		   }
+																																																																																		      ?>
