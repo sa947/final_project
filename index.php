@@ -72,212 +72,260 @@
 																						         
 																							        include('view/task_view.php');
 																								   } 
-																								     
-																								         
-																									    else
-																									    if
-																									    ($action
-																									    ==
-																									    'show_add_form')
-																									    {
-																									       //
-																									       Set
-																									       all
-																									       parameters
-																									       required
-																									       for
-																									       displaying
-																									       the
-																									       Add
-																									       task
-																									       form.
-																									              
-																										             $tasks
-																											     =
-																											     $todo_list_DB->getTasks();
-																											            
-																												           include('view/task_add.php');
-																													      }
-																													             
-																														        else
-																															if
-																															($action
-																															==
-																															'add_task')
-																															{
-																															       
-																															         //
-																																 Set
-																																 all
-																																 parameters
-																																 required
-																																 for
-																																 displaying
-																																 the
-																																 Home
-																																 page
-																																 after
-																																 adding
-																																 new
-																																 task.
-																																        $title
-																																	=
-																																	filter_input(INPUT_POST,
-																																	'title');
-																																	       
-																																	              if
-																																		      ($title
-																																		      ==
-																																		      NULL
-																																		      ||
-																																		      $title
-																																		      ==
-																																		      FALSE
-																																		      )
-																																		      {
-																																		                 $error
+																								      
+																								         else
+																									 if
+																									 ($action
+																									 ==
+																									 'delete_task')
+																									 {
+																									        
+																										   //
+																										   Set
+																										   all
+																										   parameters
+																										   required
+																										   for
+																										   displaying
+																										   the
+																										   Home
+																										   page
+																										   after
+																										   deleting
+																										   the
+																										   task.
+																										          $listID
+																											  =
+																											  filter_input(INPUT_POST,
+																											  'listID', 
+																											                 FILTER_VALIDATE_INT);
+																													    
+																													           $todo_list_DB::deleteTask($listID);
+																														          $first_task
+																															  =
+																															  $todo_list_DB->getFirstTask();
+																															             $listID
+																																     =
+																																     $first_task->getID();
+																																            
+																																	           $current_task
+																																		   =
+																																		   $todo_list_DB->getTask($listID);
+																																		          $tasks
+																																			  =
+																																			  $todo_list_DB->getTasks();
+																																			         $items
 																																				 =
-																																				 "Enter
-																																				 valid
-																																				 task
-																																				 title
-																																				 and
-																																				 try
-																																				 again.";
-																																				            include('error/error.php');
-																																					           }
-																																						   else
-																																						   {
-																																						              
-																																							                 $todo_list_DB::addTask($title);
-																																									            $added_task
-																																										    =
-																																										    $todo_list_DB->getAddedTask($title);
-																																										               $listID
-																																											       =
-																																											       $added_task->getID();
-																																											                  
-																																													             $current_task
-																																														     =
-																																														     $todo_list_DB->getTask($listID);
-																																														                $tasks
-																																																=
-																																																$todo_list_DB->getTasks();
-																																																           $items
-																																																	   =
-																																																	   $todo_item_DB->getItemByTask($listID);
-																																																	              
-																																																		                 include('view/task_view.php');
-																																																				        }
-																																																					       
-																																																					              }
-																																																						             
-																																																							        else
-																																																								if
-																																																								($action
-																																																								==
-																																																								'show_edit_form')
-																																																								{
-																																																								   
-																																																								      //
-																																																								      Set
-																																																								      all
-																																																								      parameters
-																																																								      required
-																																																								      for
-																																																								      displaying
-																																																								      the
-																																																								      Edit
-																																																								      task
-																																																								      form. 
-																																																								         	$listID
-																																																										=
-																																																										filter_input(INPUT_POST,
-																																																										'listID', 
-																																																										               FILTER_VALIDATE_INT);
-																																																											              
-																																																												             
-																																																													               $current_task
-																																																														       =
-																																																														       $todo_list_DB->getTask($listID);
-																																																														                  $tasks
-																																																																  =
-																																																																  $todo_list_DB->getTasks();
-																																																																             $items
-																																																																	     =
-																																																																	     $todo_item_DB->getItemByTask($listID);
-																																																																	            include('view/task_edit.php');
-																																																																		       }
-																																																																		          
-																																																																			     else
-																																																																			     if
-																																																																			     ($action
-																																																																			     ==
-																																																																			     'edit_task')
-																																																																			     {
-																																																																			            
-																																																																				        //
-																																																																					Set
-																																																																					all
-																																																																					parameters
-																																																																					required
-																																																																					for
-																																																																					displaying
-																																																																					the
-																																																																					Home
-																																																																					page
-																																																																					after
-																																																																					editing
-																																																																					the
-																																																																					task.
-																																																																					       $title
-																																																																					       =
-																																																																					       filter_input(INPUT_POST,
-																																																																					       'title');
-																																																																					              $listID
-																																																																						      =
-																																																																						      filter_input(INPUT_POST,
-																																																																						      'listID', 
-																																																																						                     FILTER_VALIDATE_INT);
-																																																																								             $old_title
-																																																																									     =
-																																																																									     filter_input(INPUT_POST,
-																																																																									     'old_title');
-																																																																									               
-																																																																										            if
-																																																																											    ($title
-																																																																											    ==
-																																																																											    NULL
-																																																																											    ||
-																																																																											    $title
-																																																																											    ==
-																																																																											    FALSE
-																																																																											    )
-																																																																											    {
-																																																																											               $title
-																																																																												       =
-																																																																												       $old_title;
-																																																																												                  
-																																																																														         } 
-																																																																															           
-																																																																																              
-																																																																																	                 $todo_list_DB::editTask($listID,
-																																																																																			 $title);
-																																																																																			            
-																																																																																				               $current_task
-																																																																																					       =
-																																																																																					       $todo_list_DB->getTask($listID);
-																																																																																					                  $tasks
-																																																																																							  =
-																																																																																							  $todo_list_DB->getTasks();
-																																																																																							             $items
+																																				 $todo_item_DB->getItemByTask($listID);
+																																				    
+																																				             include('view/task_view.php');
+																																					            }
+																																						           
+																																							          
+																																								     else
+																																								     if
+																																								     ($action
+																																								     ==
+																																								     'show_add_form')
+																																								     {
+																																								        //
+																																									Set
+																																									all
+																																									parameters
+																																									required
+																																									for
+																																									displaying
+																																									the
+																																									Add
+																																									task
+																																									form.
+																																									       
+																																									              $tasks
+																																										      =
+																																										      $todo_list_DB->getTasks();
+																																										             
+																																											            include('view/task_add.php');
+																																												       }
+																																												              
+																																													         else
+																																														 if
+																																														 ($action
+																																														 ==
+																																														 'add_task')
+																																														 {
+																																														        
+																																															  //
+																																															  Set
+																																															  all
+																																															  parameters
+																																															  required
+																																															  for
+																																															  displaying
+																																															  the
+																																															  Home
+																																															  page
+																																															  after
+																																															  adding
+																																															  new
+																																															  task.
+																																															         $title
+																																																 =
+																																																 filter_input(INPUT_POST,
+																																																 'title');
+																																																        
+																																																	       if
+																																																	       ($title
+																																																	       ==
+																																																	       NULL
+																																																	       ||
+																																																	       $title
+																																																	       ==
+																																																	       FALSE
+																																																	       )
+																																																	       {
+																																																	                  $error
+																																																			  =
+																																																			  "Enter
+																																																			  valid
+																																																			  task
+																																																			  title
+																																																			  and
+																																																			  try
+																																																			  again.";
+																																																			             include('error/error.php');
+																																																				            }
+																																																					    else
+																																																					    {
+																																																					               
+																																																						                  $todo_list_DB::addTask($title);
+																																																								             $added_task
+																																																									     =
+																																																									     $todo_list_DB->getAddedTask($title);
+																																																									                $listID
+																																																											=
+																																																											$added_task->getID();
+																																																											           
+																																																												              $current_task
+																																																													      =
+																																																													      $todo_list_DB->getTask($listID);
+																																																													                 $tasks
+																																																															 =
+																																																															 $todo_list_DB->getTasks();
+																																																															            $items
+																																																																    =
+																																																																    $todo_item_DB->getItemByTask($listID);
+																																																																               
+																																																																	                  include('view/task_view.php');
+																																																																			         }
+																																																																				        
+																																																																					       }
+																																																																					              
+																																																																						         else
+																																																																							 if
+																																																																							 ($action
+																																																																							 ==
+																																																																							 'show_edit_form')
+																																																																							 {
+																																																																							    
+																																																																							       //
+																																																																							       Set
+																																																																							       all
+																																																																							       parameters
+																																																																							       required
+																																																																							       for
+																																																																							       displaying
+																																																																							       the
+																																																																							       Edit
+																																																																							       task
+																																																																							       form. 
+																																																																							          	$listID
+																																																																									=
+																																																																									filter_input(INPUT_POST,
+																																																																									'listID', 
+																																																																									               FILTER_VALIDATE_INT);
+																																																																										              
+																																																																											             
+																																																																												               $current_task
+																																																																													       =
+																																																																													       $todo_list_DB->getTask($listID);
+																																																																													                  $tasks
+																																																																															  =
+																																																																															  $todo_list_DB->getTasks();
+																																																																															             $items
+																																																																																     =
+																																																																																     $todo_item_DB->getItemByTask($listID);
+																																																																																            include('view/task_edit.php');
+																																																																																	       }
+																																																																																	          
+																																																																																		     else
+																																																																																		     if
+																																																																																		     ($action
+																																																																																		     ==
+																																																																																		     'edit_task')
+																																																																																		     {
+																																																																																		            
+																																																																																			        //
+																																																																																				Set
+																																																																																				all
+																																																																																				parameters
+																																																																																				required
+																																																																																				for
+																																																																																				displaying
+																																																																																				the
+																																																																																				Home
+																																																																																				page
+																																																																																				after
+																																																																																				editing
+																																																																																				the
+																																																																																				task.
+																																																																																				       $title
+																																																																																				       =
+																																																																																				       filter_input(INPUT_POST,
+																																																																																				       'title');
+																																																																																				              $listID
+																																																																																					      =
+																																																																																					      filter_input(INPUT_POST,
+																																																																																					      'listID', 
+																																																																																					                     FILTER_VALIDATE_INT);
+																																																																																							             $old_title
 																																																																																								     =
-																																																																																								     $todo_item_DB->getItemByTask($listID);
-																																																																																								                
-																																																																																										           include('view/task_view.php');
-																																																																																											          
-																																																																																												         
-																																																																																													        }
-																																																																																														       
-																																																																																														               
-																																																																																															          ?>
+																																																																																								     filter_input(INPUT_POST,
+																																																																																								     'old_title');
+																																																																																								               
+																																																																																									            if
+																																																																																										    ($title
+																																																																																										    ==
+																																																																																										    NULL
+																																																																																										    ||
+																																																																																										    $title
+																																																																																										    ==
+																																																																																										    FALSE
+																																																																																										    )
+																																																																																										    {
+																																																																																										               $title
+																																																																																											       =
+																																																																																											       $old_title;
+																																																																																											                  
+																																																																																													         } 
+																																																																																														           
+																																																																																															              
+																																																																																																                 $todo_list_DB::editTask($listID,
+																																																																																																		 $title);
+																																																																																																		            
+																																																																																																			               $current_task
+																																																																																																				       =
+																																																																																																				       $todo_list_DB->getTask($listID);
+																																																																																																				                  $tasks
+																																																																																																						  =
+																																																																																																						  $todo_list_DB->getTasks();
+																																																																																																						             $items
+																																																																																																							     =
+																																																																																																							     $todo_item_DB->getItemByTask($listID);
+																																																																																																							                
+																																																																																																									           include('view/task_view.php');
+																																																																																																										          
+																																																																																																											         
+																																																																																																												        }
+																																																																																																													       
+																																																																																																													               
+																																																																																																														          ?>
